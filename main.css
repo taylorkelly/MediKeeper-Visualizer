@@ -1,0 +1,107 @@
+.chart div {
+   font: 10px sans-serif;
+   background-color: steelblue;
+   text-align: right;
+   padding: 3px;
+   margin: 1px;
+   color: white;
+}
+
+.chart rect {
+   stroke: white;
+   fill: steelblue;
+}
+
+.chart .risk2 {
+	fill:#FFEDA0;
+}
+
+.chart .risk1 {
+	fill:#FEB24C;
+}
+
+.chart .risk0 {
+	fill:#F03B20;
+}
+
+.chart .risk2.selected {
+	fill: #fdf7d5;
+	color: #fdf7d5;
+}
+
+.chart .risk1.selected {
+	fill: #f2d2ad;
+	color: #f2d2ad;
+}
+
+.chart .risk0.selected {
+	fill: #f4a6a7;
+	color: #f4a6a7;
+}
+
+.chart .text {
+	display:none;
+}
+
+.chart .text.selected {
+	display:block;
+}
+
+#chart2 {
+	display: none;
+}
+
+
+body {
+  font: 14px Helvetica Neue;
+  text-rendering: optimizeLegibility;
+  margin-top: 1em;
+  overflow-y: scroll;
+}
+
+
+h1 {
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: .3em;
+}
+
+#detailChartRiskType {
+	font-style: italic;
+}
+
+button {
+  font: 14px Helvetica Neue;
+  background-color: #222;
+  background-image: -moz-linear-gradient(top, rgba(255,255,255,.25), rgba(255,255,255,.11));
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, rgba(255,255,255,.25)),color-stop(1, rgba(255,255,255,.11)));
+  background-image: -webkit-linear-gradient(rgba(255,255,255,.25), rgba(255,255,255,.11));
+  color: #fff;
+  text-rendering: optimizeLegibility;
+  text-shadow: 0 -1px 1px #222;
+  padding: 6px 10px 6px 10px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #222;
+  margin: 0;
+  -moz-box-shadow: 0 1px 3px #999;
+  -webkit-box-shadow: 0 1px 3px #999;
+}
+
+button.first {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+button.last {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+button.active {
+  background-color: rgb(65,102,133);
+}
+
+button:hover {
+  background-color: steelblue;
+}
