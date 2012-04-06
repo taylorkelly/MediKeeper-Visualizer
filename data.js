@@ -79,6 +79,10 @@ d3.csv('data.csv', function(csv){
 		.attr("class", function(d, i) { return "type" + d.risktype + " risk" + d.risklevel; })
 		.on("mouseover",function(d,i) { 
 			d3.selectAll(".type" + d.risktype).classed("selected", true);
+			var piano = document.getElementById('piano' + d.risktype);
+			piano.pause();
+			piano.currentTime = 0;
+			piano.play();
 		})
 		.on("mouseout",function(d,i) { 
 			d3.selectAll(".type" + d.risktype).classed("selected", false);
