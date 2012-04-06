@@ -104,6 +104,7 @@ function loadDetailChart(riskType) {
 	$('#detailChartRiskType').fadeOut(500, function() {
         $(this).text(risks[riskType].replace("riskscore", "")).fadeIn(500);
     });
+	$(this).text(risks[riskType].replace("riskscore", "")).fadeIn(500);
 }
 
 
