@@ -79,6 +79,11 @@ span#detailChartRiskType {
 	display: none;
 }
 
+#chart2 #buttongroup {
+	width: 380px;
+	margin: auto;
+}
+
 
 
 /**
