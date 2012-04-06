@@ -1,12 +1,42 @@
-.chart div {
-   font: 10px sans-serif;
-   background-color: steelblue;
-   text-align: right;
-   padding: 3px;
-   margin: 1px;
-   color: white;
+body {
+  font: 14px Helvetica Neue;
+  text-rendering: optimizeLegibility;
+  margin-top: 1em;
+  overflow-y: scroll;
 }
 
+
+h1 {
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: .3em;
+}
+
+span#detailChartRiskType {
+	font-style: italic;
+}
+
+
+.chart_holder {
+	width: 800px;
+	margin: auto;
+}
+
+
+
+/**
+ * Overview Chart
+ */
+
+.chart .text {
+	display:none;
+}
+
+.chart .text.selected {
+	display:block;
+}
+
+/* Chart Bars */
 .chart rect {
    stroke: white;
    fill: steelblue;
@@ -39,37 +69,22 @@
 	color: #f4a6a7;
 }
 
-.chart .text {
-	display:none;
-}
 
-.chart .text.selected {
-	display:block;
-}
+
+/**
+ * Secondary Chart
+ */
 
 #chart2 {
 	display: none;
 }
 
 
-body {
-  font: 14px Helvetica Neue;
-  text-rendering: optimizeLegibility;
-  margin-top: 1em;
-  overflow-y: scroll;
-}
 
-
-h1 {
-  font-size: 36px;
-  font-weight: 300;
-  margin-bottom: .3em;
-}
-
-#detailChartRiskType {
-	font-style: italic;
-}
-
+/**
+ * Button Stuff
+ */
+ 
 button {
   font: 14px Helvetica Neue;
   background-color: #222;

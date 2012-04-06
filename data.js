@@ -1,3 +1,4 @@
+// variable for saved csv data for later use.
 var csvSave;
 
 // Risk Level Constants
@@ -13,9 +14,13 @@ var STRESS_PAIN_HIGH_RISK = 7;
 var risks = ['riskscorecoloncancer', 'riskscorediabetes', 'riskscoreheartdisease', 'riskscorelungcancer', 'riskscoreosteoporosis', 'riskscoremelanoma', 'riskscorestomachcancer', 'riskscorestroke', 'riskscoreemotionalhealth', 'riskscoreprostatecancer', 'riskscoredentalhealth', 'riskscorebreastcancer','riskscoreovariancancer','riskscoreuterinecancer', 'riskscorestresslevel', 'riskscorepainscore'];
 var n = risks.length;
 
-
+// Initialize risk score dictionaries
+	// index - holds its index within the riskScores array
+	// risklevel - high (0), medium (1), and low (2)
+	// atrisk - count of the number of people at the given risk level (initialized to 0)
+	// risktype - index of the risk type (based on risks array)
+	// previousIndex - pointer to other risk score dictionary holding the next lower risklevel
 var riskScores = [];
-
 for(riskIndex in risks) {
 	currentRisk = risks[riskIndex];
 	riskScores[+riskIndex] = {index: riskIndex, risklevel: 0, atrisk: 0, risktype: riskIndex, previousIndex: null};
@@ -23,7 +28,9 @@ for(riskIndex in risks) {
 	riskScores[+riskIndex + n*2] = {index: riskIndex + n*2, risklevel: 2, atrisk: 0, risktype: riskIndex, previousIndex: riskScores[+riskIndex + n]};
 }
 
-var chart = d3.select("#chart1").append("svg").attr("class", "chart").attr("width", 800).attr("height", 420);
+
+// main overview chart
+var chart = d3.select("#chart1").append("svg").attr("class", "chart").attr("width", 800).attr("height", 310);
 
 d3.csv('data.csv', function(csv){
 	csvSave = csv;
@@ -53,7 +60,7 @@ d3.csv('data.csv', function(csv){
 		
 	var x = function(d, i) { return d.risktype * 50; };
 	var y = function(d, i) { 
-		var returnY = 300;
+		var returnY = 280;
 		var current = d;
 		while(current != null) {
 			returnY -= h(current, current.index);
@@ -66,34 +73,37 @@ d3.csv('data.csv', function(csv){
 	
 	
 	
-	var rects = chart.selectAll("rect").data(riskScores).enter().append("rect")
-	.attr("x", x).attr("y", y)
-	.attr("height", h).attr("width", 50)
-	.attr("class", function(d, i) { return "type" + d.risktype + " risk" + d.risklevel; })
-	.on("mouseover",function(d,i) { 
-		d3.selectAll(".type" + d.risktype).classed("selected", true);
-	})
-	.on("mouseout",function(d,i) { 
-		d3.selectAll(".type" + d.risktype).classed("selected", false);
-	}) 
-	.on("click", function(d,i) { 
-		d3.selectAll("rect").transition().duration(500).attr("transform", "translate(0 0)"); 
-		d3.selectAll("rect.type" + d.risktype).transition().duration(500).attr("transform", "translate(0 20)"); 
-		loadDetailChart(d.risktype); 
-	});
+	chart.selectAll("rect").data(riskScores).enter().append("rect")
+		.attr("x", x).attr("y", y)
+		.attr("height", h).attr("width", 50)
+		.attr("class", function(d, i) { return "type" + d.risktype + " risk" + d.risklevel; })
+		.on("mouseover",function(d,i) { 
+			d3.selectAll(".type" + d.risktype).classed("selected", true);
+		})
+		.on("mouseout",function(d,i) { 
+			d3.selectAll(".type" + d.risktype).classed("selected", false);
+		}) 
+		.on("click", function(d,i) { 
+			d3.selectAll("rect").transition().duration(500).attr("transform", "translate(0 0)"); 
+			d3.selectAll("rect.type" + d.risktype).transition().duration(500).attr("transform", "translate(0 20)"); 
+			loadDetailChart(d.risktype); 
+		});
 	
 	chart.selectAll("text").data(risks).enter().append("text")
-	.attr("x", function(d, i) {return(25 + i*50)})
-	.attr("y", 30)
-	.attr("text-anchor", "middle")
-	.text(function(d) {return d.replace("riskscore", "");})
-	.attr("class", function(d, i) { return "type" + i + " text"; });
+		.attr("x", function(d, i) {return(25 + i*50)})
+		.attr("y", 10)
+		.attr("text-anchor", "middle")
+		.text(function(d) {return d.replace("riskscore", "");})
+		.attr("class", function(d, i) { return "type" + i + " text"; });
 })
 
 
 function loadDetailChart(riskType) {
-	d3.select("#chart2").style("display", "block");
-	d3.select("#chart2 #detailChartRiskType").text(risks[riskType].replace("riskscore", ""));
+	$("#chart2").fadeIn();
+	
+	$('#detailChartRiskType').fadeOut(500, function() {
+        $(this).text(risks[riskType].replace("riskscore", "")).fadeIn(500);
+    });
 }
 
 
