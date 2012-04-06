@@ -14,6 +14,8 @@ var STRESS_PAIN_HIGH_RISK = 7;
 var risks = ['riskscorecoloncancer', 'riskscorediabetes', 'riskscoreheartdisease', 'riskscorelungcancer', 'riskscoreosteoporosis', 'riskscoremelanoma', 'riskscorestomachcancer', 'riskscorestroke', 'riskscoreemotionalhealth', 'riskscoreprostatecancer', 'riskscoredentalhealth', 'riskscorebreastcancer','riskscoreovariancancer','riskscoreuterinecancer', 'riskscorestresslevel', 'riskscorepainscore'];
 var n = risks.length;
 
+var riskTest = [];
+
 // Initialize risk score dictionaries
 	// index - holds its index within the riskScores array
 	// risklevel - high (0), medium (1), and low (2)
@@ -26,6 +28,8 @@ for(riskIndex in risks) {
 	riskScores[+riskIndex] = {index: riskIndex, risklevel: 0, atrisk: 0, risktype: riskIndex, previousIndex: null};
 	riskScores[+riskIndex + n] = {index: riskIndex + n, risklevel: 1, atrisk: 0, risktype: riskIndex, previousIndex: riskScores[+riskIndex]};
 	riskScores[+riskIndex + n*2] = {index: riskIndex + n*2, risklevel: 2, atrisk: 0, risktype: riskIndex, previousIndex: riskScores[+riskIndex + n]};
+	
+	riskTest[riskIndex] = [0,0,0];
 }
 
 
@@ -71,8 +75,12 @@ d3.csv('data.csv', function(csv){
 	};
 	var h = function(d, i) { return d.atrisk;  };
 	
-	
-	
+	/*
+	// TODO - transition to better organization using layers
+	var bars = chart.selectAll("g").data(riskTest).enter().append("g");
+	var sections = bars.selectAll("rect").data(function(d){return d;}).enter().append("rect");
+	*/
+		
 	chart.selectAll("rect").data(riskScores).enter().append("rect")
 		.attr("x", x).attr("y", y)
 		.attr("height", h).attr("width", 50)
