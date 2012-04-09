@@ -18,7 +18,7 @@ span#detailChartRiskType {
 
 
 .chart_holder {
-	width: 800px;
+	width: 834px;
 	margin: auto;
 }
 
@@ -29,18 +29,14 @@ span#detailChartRiskType {
  */
 
 .chart .text {
-	display:none;
-}
-
-.chart .text.selected {
-	display:block;
+	
 }
 
 /* Chart Bars */
 .chart rect {
-   stroke: white;
    fill: steelblue;
 }
+
 
 .chart .risk2 {
 	fill:#FFEDA0;
@@ -54,21 +50,26 @@ span#detailChartRiskType {
 	fill:#F03B20;
 }
 
-.chart .risk2.selected {
+.chart .risk2.hovered {
 	fill: #fdf7d5;
 	color: #fdf7d5;
 }
 
-.chart .risk1.selected {
+.chart .risk1.hovered {
 	fill: #f2d2ad;
 	color: #f2d2ad;
 }
 
-.chart .risk0.selected {
+.chart .risk0.hovered {
 	fill: #f4a6a7;
 	color: #f4a6a7;
 }
 
+
+.chart .risk0.super-hovered, .chart .risk1.super-hovered, .chart .risk2.super-hovered {
+	stroke: black;
+	stroke-width: 2;
+}
 
 
 /**

@@ -34,7 +34,7 @@ for(riskIndex in risks) {
 
 
 // main overview chart
-var chart = d3.select("#chart1").append("svg").attr("class", "chart").attr("width", 800).attr("height", 310);
+var chart = d3.select("#chart1").append("svg").attr("class", "chart").attr("width", 834).attr("height", 310);
 
 d3.csv('data.csv', function(csv){
 	csvSave = csv;
@@ -62,7 +62,7 @@ d3.csv('data.csv', function(csv){
 	    }
 	});
 		
-	var x = function(d, i) { return d.risktype * 50; };
+	var x = function(d, i) { return 2+d.risktype * 52; };
 	var y = function(d, i) { 
 		var returnY = 280;
 		var current = d;
@@ -70,7 +70,7 @@ d3.csv('data.csv', function(csv){
 			returnY -= h(current, current.index);
 			current = current.previousIndex;
 		}
-		return returnY
+		return returnY;
 	
 	};
 	var h = function(d, i) { return d.atrisk;  };
@@ -84,16 +84,26 @@ d3.csv('data.csv', function(csv){
 	chart.selectAll("rect").data(riskScores).enter().append("rect")
 		.attr("x", x).attr("y", y)
 		.attr("height", h).attr("width", 50)
-		.attr("class", function(d, i) { return "type" + d.risktype + " risk" + d.risklevel; })
+		.attr("class", function(d, i) { return "hoverable type" + d.risktype + " risk" + d.risklevel; })
+		//.attr("title", function(d, i) { return d.atrisk + "\n(" + (d.atrisk/2.57).toFixed(0) + "%)"; })
+		.attr("title", function(d, i) { return d.atrisk + " employees"; })
+		//.attr("title", function(d, i) { return (d.atrisk/2.57).toFixed(0) + "%"; })
+		.attr("id", function(d, i) { return "type" + d.risktype + "risk" + d.risklevel; })
 		.on("mouseover",function(d,i) { 
-			d3.selectAll(".type" + d.risktype).classed("selected", true);
+			d3.selectAll(".type" + d.risktype).classed("hovered", true);
+			d3.select("#type" + d.risktype + "risk" + d.risklevel).classed("super-hovered", true);
+			$("#type" + d.risktype + "risk" + d.risklevel).tooltip('show');
+			$("#chart1 svg").append(this);
+			/*
 			var piano = document.getElementById('piano' + d.risktype);
 			piano.pause();
 			piano.currentTime = 0;
 			piano.play();
+			*/
 		})
 		.on("mouseout",function(d,i) { 
-			d3.selectAll(".type" + d.risktype).classed("selected", false);
+			d3.selectAll(".type" + d.risktype).classed("hovered", false);
+			d3.select("#type" + d.risktype + "risk" + d.risklevel).classed("super-hovered", false);
 		}) 
 		.on("click", function(d,i) { 
 			d3.selectAll("rect").transition().duration(500).attr("transform", "translate(0 0)"); 
